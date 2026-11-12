@@ -1,6 +1,6 @@
 package com.martins.mm_barber.catalog.domain;
 
-import com.martins.mm_barber.shared.DomainException;
+import com.martins.mm_barber.shared.domain.DomainException;
 import lombok.Getter;
 
 import java.math.BigDecimal;

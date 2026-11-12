@@ -1,6 +1,6 @@
 package com.martins.mm_barber.catalog.domain;
 
-import com.martins.mm_barber.shared.DomainException;
+import com.martins.mm_barber.shared.domain.DomainException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
