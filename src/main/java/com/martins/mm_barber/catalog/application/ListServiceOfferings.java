@@ -21,4 +21,11 @@ public class ListServiceOfferings {
         return repository.findAllByBarbershopId(barbershopId);
     }
 
+    @Transactional(readOnly = true)
+    public List<ServiceOffering> execute(Long barbershopId, boolean onlyActive) {
+        List<ServiceOffering> serviceOfferings = repository.findAllByBarbershopId(barbershopId);
+        return onlyActive ? serviceOfferings.stream().filter(ServiceOffering::isActive)
+                            .toList() : serviceOfferings;
+    }
+
 }

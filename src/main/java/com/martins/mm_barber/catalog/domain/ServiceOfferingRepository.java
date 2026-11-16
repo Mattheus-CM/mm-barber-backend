@@ -12,4 +12,6 @@ public interface ServiceOfferingRepository {
     List<ServiceOffering> findAllByBarbershopId(Long barbershopId);
 
     boolean existsByBarbershopIdAndName(Long barbershopId, String name);
+
+    Optional<ServiceOffering> findByIdAndBarbershopId(Long id, Long barbershopId);
 }

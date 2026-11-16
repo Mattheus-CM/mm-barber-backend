@@ -10,37 +10,42 @@ import java.util.Optional;
 @Repository
 public class ServiceOfferingRepositoryAdapter implements ServiceOfferingRepository {
 
-    private final SpringDataServiceOfferingRepository springDataServiceOfferingRepository;
+    private final SpringDataServiceOfferingRepository repository;
     private final ServiceOfferingPersistenceMapper mapper;
 
     public ServiceOfferingRepositoryAdapter(
-            SpringDataServiceOfferingRepository springDataServiceOfferingRepository,
+            SpringDataServiceOfferingRepository repository,
             ServiceOfferingPersistenceMapper mapper) {
-        this.springDataServiceOfferingRepository = springDataServiceOfferingRepository;
+        this.repository = repository;
         this.mapper = mapper;
     }
 
     @Override
     public ServiceOffering save(ServiceOffering offering) {
-        ServiceOfferingJpaEntity saved = springDataServiceOfferingRepository
-                .save(mapper.toEntity(offering));
+        ServiceOfferingJpaEntity saved = repository.save(mapper.toEntity(offering));
         return mapper.toDomain(saved);
     }
 
     @Override
     public Optional<ServiceOffering> findById(Long id) {
-        return springDataServiceOfferingRepository.findById(id).map(mapper::toDomain);
+        return repository.findById(id).map(mapper::toDomain);
     }
 
     @Override
     public List<ServiceOffering> findAllByBarbershopId(Long barbershopId) {
-        return springDataServiceOfferingRepository.findAllByBarbershopId(barbershopId).stream()
+        return repository.findAllByBarbershopId(barbershopId).stream()
                 .map(mapper::toDomain)
                 .toList();
     }
 
     @Override
     public boolean existsByBarbershopIdAndName(Long barbershopId, String name) {
-        return springDataServiceOfferingRepository.existsByBarbershopIdAndNameIgnoreCase(barbershopId, name);
+        return repository.existsByBarbershopIdAndNameIgnoreCase(barbershopId, name);
     }
+
+    @Override
+    public Optional<ServiceOffering> findByIdAndBarbershopId(Long id, Long barbershopId) {
+        return repository.findByIdAndBarbershopId(id, barbershopId).map(mapper::toDomain);
+    }
+
 }

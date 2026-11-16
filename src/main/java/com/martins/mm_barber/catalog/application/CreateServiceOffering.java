@@ -16,16 +16,17 @@ public class CreateServiceOffering {
 
     @Transactional
     public ServiceOffering execute(CreateServiceOfferingCommand command) {
-        ServiceOffering offering = ServiceOffering.create(
+        ServiceOffering serviceOffering = ServiceOffering.create(
                 command.barbershopId(),
                 command.name(),
                 command.description(),
                 command.defaultPrice());
 
-        if (repository.existsByBarbershopIdAndName(offering.getBarbershopId(), offering.getName())) {
-            throw new ServiceOfferingAlreadyExistsException(offering.getName());
+        if (repository.existsByBarbershopIdAndName(
+                serviceOffering.getBarbershopId(), serviceOffering.getName())) {
+            throw new ServiceOfferingAlreadyExistsException(serviceOffering.getName());
         }
 
-        return repository.save(offering);
+        return repository.save(serviceOffering);
     }
 }

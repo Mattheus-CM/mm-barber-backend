@@ -1,6 +1,7 @@
 package com.martins.mm_barber.catalog.api;
 
 import com.martins.mm_barber.catalog.application.CreateServiceOfferingCommand;
+import com.martins.mm_barber.catalog.application.UpdateServiceOfferingCommand;
 import com.martins.mm_barber.catalog.domain.ServiceOffering;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,4 +17,9 @@ public interface ServiceOfferingApiMapper {
     ServiceOfferingResponse toResponse(ServiceOffering serviceOffering);
 
     List<ServiceOfferingResponse> toResponseList(List<ServiceOffering> serviceOfferings);
+
+    @Mapping(target = "barbershopId", source = "barbershopId")
+    @Mapping(target = "serviceId", source = "serviceId")
+    UpdateServiceOfferingCommand toCommand(Long serviceId, Long barbershopId,
+                                           UpdateServiceOfferingRequest request);
 }
